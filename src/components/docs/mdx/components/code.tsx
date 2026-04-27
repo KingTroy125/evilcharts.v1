@@ -30,7 +30,10 @@ export async function CodeBlock({
   if (withWrapper) {
     return (
       <div
-        className={cn("dark:bg-primary-foreground rounded-md bg-[#F5F5F5] p-1", wrapperClassName)}
+        className={cn(
+          "dark:bg-primary-foreground rounded-[10px] bg-[#F5F5F5] p-1",
+          wrapperClassName,
+        )}
       >
         <div className="flex h-7 justify-between px-1">
           <figcaption
