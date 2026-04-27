@@ -1,0 +1,592 @@
+---
+title: Line Chart
+description: Simple static & beautifully designed line charts
+image: /og/line-chart.png
+links:
+  github: https://github.com/legions-developer/evilcharts/blob/main/src/registry/charts/line-chart.tsx
+  doc: https://recharts.github.io/en-US/examples/SimpleLineChart/
+  api: https://recharts.github.io/en-US/api/LineChart/
+---
+
+<ComponentPreview title="Basic Chart" name="ex-line-chart"  />
+
+## Installation
+
+<CodeTabs>
+  <TabsList variant="underline">
+    <TabsTab value="cli">CLI</TabsTab>
+    <TabsTab value="manual">Manual</TabsTab>
+  </TabsList>
+  <TabsPanel value="cli">
+    <CliBlock commands={["@evilcharts/line-chart"]} />
+  </TabsPanel>
+  <TabsPanel value="manual">
+    <Steps>
+      <Step>
+        <StepTitle>Install the following dependencies:</StepTitle>
+        <StepContent>
+          <CommandBlock commands={["recharts", "motion"]} />
+        </StepContent>
+      </Step>
+      <Step>
+        <StepTitle>Copy and paste the following code snippets into your project.</StepTitle>
+         <StepDescription>
+          To use the chart, first create the folder `evilcharts` and a subfolder called `charts` inside your `components` directory.
+          Then, copy the following base line-chart code into a new file in that folder.
+        </StepDescription>
+        <StepContent>
+          <ComponentSource
+            name="line-chart"
+            title="components/evilcharts/charts/line-chart.tsx"
+          />
+        </StepContent>
+      </Step>
+       <Step>
+        <StepTitle>Now, Let's add the chart component to your project.</StepTitle>
+        <StepDescription>
+          These Components are required by the chart component to render the chart. Make a folder called `ui` inside the `evilcharts` folder and paste the code there.
+
+          Below is main chart component.
+        </StepDescription>
+        <StepContent>
+          <ComponentSource
+            name="chart"
+            title="components/evilcharts/ui/chart.tsx"
+          />
+        </StepContent>
+      </Step>
+       <Step>
+        <StepTitle>Now, We need to add sub components.</StepTitle>
+        <StepDescription>
+          Create a file called `tooltip.tsx` inside the `evilcharts/ui` folder and paste the code there.
+        </StepDescription>
+        <StepContent>
+          <ComponentSource
+            name="tooltip"
+            title="components/evilcharts/ui/tooltip.tsx"
+          />
+        </StepContent>
+        <StepDescription>
+          Now, create another file called `legend.tsx` inside the `evilcharts/ui` folder and paste the code there.
+        </StepDescription>
+        <StepContent>
+          <ComponentSource
+            name="legend"
+            title="components/evilcharts/ui/legend.tsx"
+          />
+        </StepContent>
+        <StepDescription>
+          Finally, create last file called `dot.tsx` inside the `evilcharts/ui` folder and paste the code there.
+        </StepDescription>
+        <StepContent>
+          <ComponentSource
+            name="dot"
+            title="components/evilcharts/ui/dot.tsx"
+          />
+        </StepContent>
+      </Step>
+    </Steps>
+  </TabsPanel>
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { EvilLineChart } from "@/components/evilcharts/charts/line-chart";
+```
+
+```tsx
+<EvilLineChart  
+  xDataKey=""
+  curveType="monotone"
+  strokeVariant="solid" 
+  activeDotVariant="default"
+  data={data} 
+  chartConfig={chartConfig}
+/>
+```
+
+### Interactive Selection
+
+When `isClickable` is enabled, you can use the `onSelectionChange` callback to handle selection events:
+
+```tsx
+<EvilLineChart
+  data={data}
+  chartConfig={chartConfig}
+  isClickable={true}
+  onSelectionChange={(selectedDataKey) => {
+    if (selectedDataKey) {
+      console.log("Selected:", selectedDataKey);
+    } else {
+      console.log("Deselected");
+    }
+  }}
+/>
+```
+
+### Loading State
+
+<ComponentPreview className="mb-0" title="isLoading='true'" name="ex-loading-state-line-chart"  />
+<Alert > 
+  <AlertContent >
+    The line chart supports loading state. You can pass the `isLoading` prop to the chart to show the loading state. You can also pass `curveType` to customize the curve type of the loading state. Here, im using `curveType='bump'` to make the loading state more realistic.
+  </AlertContent>
+</Alert>
+
+### Buffer Line
+
+<ComponentPreview className="mb-0" title="enableBufferLine='true'" name="ex-buffer-line-chart"  />
+<Alert > 
+  <AlertContent >
+    When `enableBufferLine` is enabled, the last segment of each line is rendered as a dashed/dotted pattern while the rest of the line stays solid. This is useful for indicating projected, estimated, or incomplete data at the end of a series — commonly seen in financial charts and forecasting dashboards.
+  </AlertContent>
+</Alert>
+
+## Examples
+
+Below are some examples of the line chart with different `variants`. where you can change the `curveType` & `strokeVariant`. 
+
+### Gradient Colors
+
+<ComponentPreview className="mb-0" title="gradient colors" name="ex-gradient-colors-line-chart"  />
+<ComponentPreview title="gradient colors - bump" name="ex-gradient-colors-bump-line-chart"  />
+
+### Curve Types
+
+<ComponentPreview className="mb-0" title="curveType='bump'" name="ex-bump-curve-type-line-chart"  />
+<ComponentPreview className="mb-0" title="curveType='step'" name="ex-step-curve-type-line-chart"  />
+<ComponentPreview title="curveType='monotoneY'" name="ex-monotoney-curve-type-line-chart"  />
+
+### Stroke Variants
+
+<ComponentPreview className="mb-0" title="strokeVariant='solid'" name="ex-solid-stroke-line-chart"  />
+<ComponentPreview className="mb-0" title="strokeVariant='dashed'" name="ex-dashed-stroke-line-chart"  />
+<ComponentPreview title="strokeVariant='animated-dashed'" name="ex-animated-dashed-stroke-line-chart"  />
+
+### Glowing Lines
+
+<ComponentPreview className="mb-0" title="glowingLines={['desktop']} - gradient colors" name="ex-glowing-desktop-line-chart"  />
+<ComponentPreview title="glowingLines={['mobile']} - solid colors" name="ex-glowing-mobile-line-chart"  />
+
+## API Reference
+
+<ApiReferenceWrapper>
+  <ApiReference>
+    <ApiHeader
+      propName="data"
+      isRequired 
+    />
+    <ApiContent>
+      Data used to display the chart. An array of objects where each object represents a data point.
+      
+      type: `TData[]` where `TData extends Record<string, unknown>`
+    </ApiContent>
+  </ApiReference>
+  
+  <ApiReference>
+    <ApiHeader
+      propName="chartConfig"
+      isRequired
+    />
+    <ApiContent>
+      Configuration object that defines the chart's series. Each key should match a data key in your data array, with a corresponding color or color array.
+      
+      type: `Record<string, ChartConfig[string]>`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="xDataKey"
+    />
+    <ApiContent>
+      The key from your data objects to use for the X-axis values.
+      
+      type: `keyof TData & string`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="yDataKey"
+    />
+    <ApiContent>
+      The key from your data objects to use for the Y-axis values.
+      
+      type: `keyof TData & string`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="className"
+    />
+    <ApiContent>
+      Additional CSS classes to apply to the chart container.
+      
+      type: `string`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="curveType"
+    />
+    <ApiContent>
+      The type of curve interpolation for the lines. Determines how points are connected.
+      
+      type: `"basis" | "basisClosed" | "basisOpen" | "bumpX" | "bumpY" | "bump" | "linear" | "linearClosed" | "natural" | "monotoneX" | "monotoneY" | "monotone" | "step" | "stepBefore" | "stepAfter"`
+      
+      default: `"linear"`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="strokeVariant"
+    />
+    <ApiContent>
+      The visual style for the line strokes.
+      
+      type: `"solid" | "dashed" | "animated-dashed"`
+      
+      default: `"solid"`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="dotVariant"
+    />
+    <ApiContent>
+      The visual style for dots at data points on the lines.
+      
+      type: `"default" | "border" | "colored-border"`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="activeDotVariant"
+    />
+    <ApiContent>
+      The visual style for the active/hovered dot at data points.
+      
+      type: `"default" | "border" | "colored-border"`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="legendVariant"
+    />
+    <ApiContent>
+      The visual style variant for the legend indicators.
+      
+      type: `"square" | "circle" | "circle-outline" | "rounded-square" | "rounded-square-outline" | "vertical-bar" | "horizontal-bar"`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="connectNulls"
+    />
+    <ApiContent>
+      Whether to connect line segments when there are null values in the data.
+      
+      type: `boolean`
+      
+      default: `false`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="tickGap"
+    />
+    <ApiContent>
+      Minimum gap in pixels between axis ticks.
+      
+      type: `number`
+      
+      default: `8`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="hideTooltip"
+    />
+    <ApiContent>
+      Whether to hide the tooltip on hover.
+      
+      type: `boolean`
+      
+      default: `false`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="tooltipRoundness"
+    />
+    <ApiContent>
+      Controls the border-radius of the tooltip.
+      
+      type: `"sm" | "md" | "lg" | "xl"`
+      
+      default: `"lg"`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="tooltipVariant"
+    />
+    <ApiContent>
+      Controls the visual style of the tooltip.
+      
+      type: `"default" | "frosted-glass"`
+      
+      default: `"default"`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="tooltipDefaultIndex"
+    />
+    <ApiContent>
+      When set, the tooltip will be visible by default at the specified data point index.
+      
+      type: `number`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="hideCartesianGrid"
+    />
+    <ApiContent>
+      Whether to hide the background grid lines.
+      
+      type: `boolean`
+      
+      default: `false`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="backgroundVariant"
+    />
+    <ApiContent>
+      Background pattern variant to display behind the chart. When set, the Cartesian grid is automatically hidden.
+      
+      type: `BackgroundVariant`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="hideLegend"
+    />
+    <ApiContent>
+      Whether to hide the chart legend.
+      
+      type: `boolean`
+      
+      default: `false`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="hideCursorLine"
+    />
+    <ApiContent>
+      Whether to hide the vertical cursor line that appears on hover.
+      
+      type: `boolean`
+      
+      default: `false`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="isClickable"
+    />
+    <ApiContent>
+      Enables interactive clicking on lines to select/deselect them. When a line is selected, unselected lines become semi-transparent.
+      
+      type: `boolean`
+      
+      default: `false`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="defaultSelectedDataKey"
+    />
+    <ApiContent>
+      The data key that should be selected by default when `isClickable` is enabled.
+      
+      type: `string | null`
+      
+      default: `null`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="onSelectionChange"
+    />
+    <ApiContent>
+      Callback function that is called when a line is selected or deselected. Receives the selected data key as a parameter, or `null` when deselected.
+      
+      **Note:** This prop is only available when `isClickable` is set to `true`.
+      
+      type: `(selectedDataKey: string | null) => void`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="isLoading"
+    />
+    <ApiContent>
+      Shows a loading skeleton animation with shimmer effect when data is being fetched.
+      
+      type: `boolean`
+      
+      default: `false`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="loadingPoints"
+    />
+    <ApiContent>
+      Number of data points to display in the loading skeleton.
+      
+      type: `number`
+      
+      default: `14`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="enableBufferLine"
+    />
+    <ApiContent>
+      When enabled, renders the last segment of each line as a dashed pattern while the rest stays solid. Useful for indicating projected or incomplete data at the end of a series.
+      
+      type: `boolean`
+      
+      default: `false`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="showBrush"
+    />
+    <ApiContent>
+      When enabled, displays a brush control below the chart for selecting and zooming into a range of data.
+      
+      type: `boolean`
+      
+      default: `false`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="brushHeight"
+    />
+    <ApiContent>
+      The height of the brush preview area in pixels.
+      
+      type: `number`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="brushFormatLabel"
+    />
+    <ApiContent>
+      Custom formatter for the brush axis labels.
+      
+      type: `(value: unknown, index: number) => string`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="onBrushChange"
+    />
+    <ApiContent>
+      Callback invoked when the user changes the brush selection range.
+      
+      type: `(range: EvilBrushRange) => void`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="glowingLines"
+    />
+    <ApiContent>
+      Array of data keys that should have a glowing effect applied. Creates a smooth outer glow around the specified lines.
+      
+      type: `NumericDataKeys<TData>[]` (array of keys where the value is a number)
+      
+      default: `[]`
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="chartProps"
+    />
+    <ApiContent>
+      Additional props to pass to the underlying Recharts LineChart component.
+      
+      type: `ComponentProps<typeof LineChart>`
+      
+      Read the <Link href="https://recharts.github.io/en-US/api/LineChart/" _blank>Recharts LineChart documentation</Link> for available props.
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="xAxisProps"
+    />
+    <ApiContent>
+      Additional props to pass to the Recharts XAxis component.
+      
+      type: `ComponentProps<typeof XAxis>`
+      
+      Read the <Link href="https://recharts.github.io/en-US/api/XAxis/" _blank>Recharts XAxis documentation</Link> for available props.
+    </ApiContent>
+  </ApiReference>
+
+  <ApiReference>
+    <ApiHeader
+      propName="yAxisProps"
+    />
+    <ApiContent>
+      Additional props to pass to the Recharts YAxis component.
+      
+      type: `ComponentProps<typeof YAxis>`
+      
+      Read the <Link href="https://recharts.github.io/en-US/api/YAxis/" _blank>Recharts YAxis documentation</Link> for available props.
+    </ApiContent>
+  </ApiReference>
+</ApiReferenceWrapper>
