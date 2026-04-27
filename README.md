@@ -1,4 +1,4 @@
-<img width="4800" height="2532" alt="banner" src="https://github.com/user-attachments/assets/e5701a46-1a32-449d-aaef-e9172af7dc0a" />
+<img width="4800" height="2532" alt="banner" src="https://evilcharts.com/og/og-image.png" />
 
 # 📊 EvilCharts
 
