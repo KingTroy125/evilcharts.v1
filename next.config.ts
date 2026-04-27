@@ -60,6 +60,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/docs/area-charts",
+        destination: "/docs/area-chart/static",
+        permanent: true,
+      },
+      {
         source: "/docs/bar-charts",
         destination: "/docs/bar-chart/static",
         permanent: true,
