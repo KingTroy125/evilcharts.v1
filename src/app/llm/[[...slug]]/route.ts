@@ -21,6 +21,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ slu
   return new NextResponse(processedContent, {
     headers: {
       "Content-Type": "text/markdown; charset=utf-8",
+      Vary: "Accept",
     },
   });
 }

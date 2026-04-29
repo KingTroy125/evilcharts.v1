@@ -33,6 +33,9 @@ export async function generateMetadata(props: {
     description,
     alternates: {
       canonical: url,
+      types: {
+        "text/markdown": page.url === "/docs" ? "/docs.md" : `${page.url}.md`,
+      },
     },
     openGraph: {
       type: "article",
@@ -86,6 +89,13 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
             <h1 className="scroll-m-20 text-3xl font-semibold tracking-tight xl:text-4xl">
               {doc.title}
             </h1>
+            <blockquote className="sr-only">
+              <h2>Documentation Index</h2>
+              <p>
+                Fetch the complete documentation index at: <a href="/llms.txt">/llms.txt</a>.
+                Use this file to discover all available pages before exploring further.
+              </p>
+            </blockquote>
             {doc.description && (
               <p className="text-muted-foreground text-[15px]">{doc.description}</p>
             )}
